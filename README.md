@@ -30,7 +30,7 @@ npm start
 
 Список исправленных функциональных ошибок, примерно, в порядке их исправления:
 
-- в index.js обернул import в скобки : <pre><code>import <b>{</b>initMap<b>}</b> from './map'</code></pre>. Другое решение - в map.js можно сделать <pre><code>export <b>default</b> initMap</code></pre>
+- в index.js обернул import в скобки : <pre><code>import <b>{</b>initMap<b>}</b> from './map'</code></pre> Другое решение - в map.js можно сделать <pre><code>export <b>default</b> initMap</code></pre>
 
 - установил высоту и ширину карты на весь экран: 
 
@@ -38,8 +38,8 @@ npm start
         html,
         body,
         #map {
-            width: 100%;
-            height: 100%;
+            <b>width: 100%;
+            height: 100%;</b>
             margin: 0;
             padding: 0;
         }
