@@ -5,7 +5,7 @@ import { createFilterControl } from './filter';
 export function initMap(ymaps, containerId) {
   const myMap = new ymaps.Map(containerId, {
     center: [55.76, 37.64],
-    controls: [],
+    //controls: [],
     zoom: 10
   });
 
@@ -23,6 +23,7 @@ export function initMap(ymaps, containerId) {
 
   loadList().then(data => {
     objectManager.add(data);
+    myMap.geoObjects.add(objectManager);
   });
 
   // details
