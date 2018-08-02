@@ -19,7 +19,7 @@ export function initMap(ymaps, containerId) {
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
 
-  objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+  // objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
 
   loadList().then(data => {
     objectManager.add(data);
@@ -32,11 +32,13 @@ export function initMap(ymaps, containerId) {
     const obj = objectManager.objects.getById(objectId);
 
     objectManager.objects.balloon.open(objectId);
-
     if (!obj.properties.details) {
       loadDetails(objectId).then(data => {
+        
         obj.properties.details = data;
+         
         objectManager.objects.balloon.setData(obj);
+
       });
     }
   });
