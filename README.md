@@ -28,40 +28,35 @@ npm start
 
 # Проделанная работа
 
+## Ошибки, влияющие на работу
+
 Список исправленных функциональных ошибок, примерно, в порядке их исправления:
 
 - в index.js обернул import в скобки : <pre><code>import <b>{</b>initMap<b>}</b> from './map'</code></pre> Другое решение - в map.js можно сделать <pre><code>export <b>default</b> initMap</code></pre>
 
-- установил высоту и ширину карты на весь экран: 
+- установил высоту и ширину карты на весь экран:
 
-        <pre><code>
-        html,
-        body,
-        #map {
-            <b>width: 100%;
-            height: 100%;</b>
-            margin: 0;
-            padding: 0;
-        }
-        </code></pre>
-
+		html,
+		body,
+		#map {
+    		width: 100%;
+    		height: 100%;
+    		margin: 0;
+    		padding: 0;
+		}
 
 - в map.js loadList должен выглядеть так
 
-        <pre><code>
         loadList().then(data => { 
             objectManager.add(data); 
-            <b>myMap.geoObjects.add(objectManager); // эта строчка добавлена</b>
+            myMap.geoObjects.add(objectManager); // эта строчка добавлена
         });
-        </code></pre>
 
 - в details.js заменил arrow-функции на обычные, т.к. важен контекст
 
 - следующую строчку в map.js нужно удалить, иначе она сбивает настройки цветов кластера
 
-        <pre><code>
         objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
-        </code></pre>
 
 - в chart.js из строчки:
 
@@ -73,34 +68,33 @@ npm start
 
 - для того, чтобы после приближения карты, её можно было отдалять - я вернул элементы управления картой
 
-#Стилистические ошибки
+## Стилистические ошибки
 
 Я провёл небольшую разведку и обнаружил https://github.com/ymaps/codestyle
 
 Надеюсь, я не промахнулся, и это действительно code-style Яндекса (или по крайней мере code-style js yandex карт)
 
-Решил использовать его + eslint, чтобы ничего не проглядеть (и иногда исправлял ошибки автоматически, с помощью eslint)
+Решил использовать его + eslint, чтобы ничего не упустить (и иногда исправлял ошибки автоматически, с помощью eslint)
 
-##Основые исправления
+### Основые исправления
 
 - 2 space-indentation --> 4 space-indentation
 - double-quotes (```"```) --> single-quotes(```'```)
 - { smth } --> {smth}
 - ternary operator
-
-        ```
-	    from
+	    
+	from
     
 	    	return isActive
 	    		? `rgba(54, 162, 235, ${alpha})`
 	    		: `rgba(255, 99, 132, ${alpha})`;
     
-	    to
+	to
+	
 	    	return isActive ?
 	    		`rgba(54, 162, 235, ${alpha})` :
 	    		`rgba(255, 99, 132, ${alpha})`;
-        ```
 
-- в arrow-функциях оборачивал аргументы круглыми скобками : ```arg => {body}``` --> ```(arg) => {body}``
+- в arrow-функциях обернул аргументы круглыми скобками : ```arg => {body}``` --> ```(arg) => {body}```
 - изменил, где это возможно, обычные функции в arrow-функции
 - var --> const/let
