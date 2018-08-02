@@ -30,15 +30,77 @@ npm start
 
 Список исправленных функциональных ошибок, примерно, в порядке их исправления:
 
-- в index.js обернул import в скобки : `import {initMap} from './map'`. Другое решение - в map.js можно сделать `export default initMap`
-- установил высоту и ширину карты на весь экран
+- в index.js обернул import в скобки : <pre><code>import <b>{</b>initMap<b>}</b> from './map'</code></pre>. Другое решение - в map.js можно сделать <pre><code>export <b>default</b> initMap</code></pre>
+
+- установил высоту и ширину карты на весь экран: 
+
+        <pre><code>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        </code></pre>
+
+
 - в map.js loadList должен выглядеть так
 
-```
-loadList().then(data => { 
-    objectManager.add(data); 
-    myMap.geoObjects.add(objectManager); // эта строчка добавлена
-});
-```
+        <pre><code>
+        loadList().then(data => { 
+            objectManager.add(data); 
+            <b>myMap.geoObjects.add(objectManager); // эта строчка добавлена</b>
+        });
+        </code></pre>
 
-- в details.js заменил arrow-функции на обычные
+- в details.js заменил arrow-функции на обычные, т.к. важен контекст
+
+- следующую строчку в map.js нужно удалить, иначе она сбивает настройки цветов кластера
+
+        <pre><code>
+        objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+        </code></pre>
+
+- в chart.js из строчки:
+
+        yAxes: [{ ticks: { beginAtZero: true, max: 0 } }]
+
+    необходимо убрать max:0, иначе график строится только в отрицательной полуоси
+
+- стандартный формат времени, открывающийся при наведении на точки графика, некрасивый, и не влезает в рамки графика. Я сделал свой формат
+
+- для того, чтобы после приближения карты, её можно было отдалять - я вернул элементы управления картой
+
+#Стилистические ошибки
+
+Я провёл небольшую разведку и обнаружил https://github.com/ymaps/codestyle
+
+Надеюсь, я не промахнулся, и это действительно code-style Яндекса (или по крайней мере code-style js yandex карт)
+
+Решил использовать его + eslint, чтобы ничего не проглядеть (и иногда исправлял ошибки автоматически, с помощью eslint)
+
+##Основые исправления
+
+- 2 space-indentation --> 4 space-indentation
+- double-quotes (```"```) --> single-quotes(```'```)
+- { smth } --> {smth}
+- ternary operator
+
+        ```
+	    from
+    
+	    	return isActive
+	    		? `rgba(54, 162, 235, ${alpha})`
+	    		: `rgba(255, 99, 132, ${alpha})`;
+    
+	    to
+	    	return isActive ?
+	    		`rgba(54, 162, 235, ${alpha})` :
+	    		`rgba(255, 99, 132, ${alpha})`;
+        ```
+
+- в arrow-функциях оборачивал аргументы круглыми скобками : ```arg => {body}``` --> ```(arg) => {body}``
+- изменил, где это возможно, обычные функции в arrow-функции
+- var --> const/let
