@@ -5,7 +5,6 @@ import {createFilterControl} from './filter';
 export function initMap(ymaps, containerId) {
     const myMap = new ymaps.Map(containerId, {
         center: [55.76, 37.64],
-        //controls: [],
         zoom: 10
     });
 
@@ -18,8 +17,6 @@ export function initMap(ymaps, containerId) {
         geoObjectHideIconOnBalloonOpen: false,
         geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
     });
-
-    // objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
 
     loadList().then((data) => {
         objectManager.add(data);
