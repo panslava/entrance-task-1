@@ -12,7 +12,19 @@ function getLabel(el, i, data) {
     x.setMinutes(0);
     x.setSeconds(0);
     x.setMilliseconds(0);
-    return x.toString();
+
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        timezone: 'UTC',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZoneName: 'short'
+    };
+
+    return x.toLocaleString('en-US', options);
 }
 
 export function createChart(container, data, isActive) {
